@@ -27,9 +27,10 @@ const App = ({ Component, pageProps }) => {
       >
         <main className="bg-light-background dark:bg-dark-background w-full h-full p-2">
           <Component {...pageProps} inputRef={inputRef} />
-          <Analytics />
         </main>
       </div>
+
+      <Analytics />
     </>
   );
 };
