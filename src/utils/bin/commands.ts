@@ -1,8 +1,8 @@
-// List of commands that do not require API calls
+﻿// List of commands that do not require API calls
 
 import * as bin from './index';
 import config from '../../../config.json';
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 
 // Help
 export const help = async (args: string[]): Promise<string> => {
@@ -61,21 +61,20 @@ if you want to help, you can type 'donate'.`;
 };
 
 export const birthday = async (args: string[]): Promise<string> => {
-  const dt = DateTime.now();
-  const bday = DateTime.fromISO(`${dt.year}-12-02T08:00+07:00`);
-  const obj = bday.diff(dt, ['months', 'days', 'hours', 'minutes']).toObject();
-  let duration = "";
-  for (const i in obj) {
-    const val = obj[i];
-    if (val !== 0) {
-      const unit = val === 1 ? i.substring(0, i.length - 1) : i;
-      duration += `${Math.round(val)} ${unit} `;
-    }
+  const today = DateTime.now();
+  const thisYear = DateTime.fromISO(`${today.year}-12-02`);
+  if (today.hasSame(thisYear, 'day')) {
+    return `
+    ${thisYear.toFormat("cccc',' dd LLLL y")}
+    Happy birthday! 🥳
+    `
   }
 
+  const bday = today.startOf('day') < thisYear.startOf('day') ? thisYear : thisYear.plus({ years: 1 });
+  const interval = Interval.fromDateTimes(today, bday);
+  const duration = interval.length() >= 86400000 ? `${Math.round(interval.length('days'))} days` : `${Math.round(interval.length('seconds'))} seconds`;
   return `
     ${bday.toFormat("cccc',' dd LLLL y")}
-    ${bday.toFormat("HH':'mm ZZZZZ '('ZZ')'")}
     In ${duration}
   `;
 };
