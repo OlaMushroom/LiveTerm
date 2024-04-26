@@ -22,14 +22,21 @@ export const getActivities = async () => {
   try {
     const { data } = await axios.get(`https://api.lanyard.rest/v1/users/${user_id}`);
     const activities = data['data']['activities'];
-    let str = ""
+    let str = "";
     for (const index of activities) {
       str += `#${activities.indexOf(index) + 1} - `;
       switch (index["name"]) {
-        case "osu!": str += format.urlTemplate(index["name"], "https://osu.ppy.sh") + format.osu(index["details"], index["state"]);
-        case "Spotify": break;
-        case "Visual Studio Code": str += format.urlTemplate(index["name"], "https://code.visualstudio.com/") + format.vscode(index["details"], index["state"]);
-        default: str += `${index["name"]}\n`;
+        case "osu!":
+          str += format.urlTemplate(index["name"], "https://osu.ppy.sh") + format.osu(index["details"], index["state"]);
+          break;
+        case "Spotify":
+          break;
+        case "Visual Studio Code":
+          str += format.urlTemplate(index["name"], "https://code.visualstudio.com/") + format.vscode(index["details"], index["state"]);
+          break;
+        default:
+          str += `${index["name"]}\n`;
+          break;
       }
     }
     return str;
