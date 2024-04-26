@@ -1,7 +1,8 @@
 {
-  "title": "test",
+  "title": "OlaMushroom",
   "repo": "https://github.com/OlaMushroom/LiveTerm",
   "social": {
+    "bento": "olamushroom",
     "github": "OlaMushroom"
   },
   "donate_urls": {

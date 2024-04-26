@@ -30,17 +30,25 @@ export const repo = async (args: string[]): Promise<string> => {
   return 'Opening Github repository...';
 };
 
+// Contact
+export const github = async (args: string[]): Promise<string> => {
+  window.open(`https://github.com/${config.social.github}/`);
+  return 'Opening github...';
+};
+
+// Socials
+export const socials = async (args: string[]): Promise<string> => {
+  return `
+- <u><a class="text-light-blue dark:text-dark-blue underline" href="https://bento.me/${config.social.bento}" target="_blank">Bento</a></u>
+- <u><a class="text-light-blue dark:text-dark-blue underline" href="https://github.com/${config.social.github}" target="_blank">Github</a></u>
+`;
+};
+
 // Donate
 export const donate = async (args: string[]): Promise<string> => {
   return `
 - <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.buymeacoffee}" target="_blank">buymeacoffee</a></u>
 `;
-};
-
-// Contact
-export const github = async (args: string[]): Promise<string> => {
-  window.open(`https://github.com/${config.social.github}/`);
-  return 'Opening github...';
 };
 
 // Typical linux commands
