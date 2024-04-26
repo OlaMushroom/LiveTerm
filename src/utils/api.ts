@@ -3,6 +3,7 @@ import axios from 'axios';
 const user_id = '608876620417335337';
 
 const format = {
+  urlTemplate: (name: string, url:string) => `<u><a class="text-light-blue dark:text-dark-blue underline" href="${url}" target="_blank">${name}</a></u>\n`,
   osu: function(details?: string, state?: string) {
     let str = "";
     str += state !== (null || undefined) ? `\t${state}\n` : "";
@@ -25,9 +26,9 @@ export const getActivities = async () => {
     for (const index of activities) {
       str += `#${activities.indexOf(index) + 1} - `;
       switch (index["name"]) {
-        case "osu!": str += `<u><a class="text-light-blue dark:text-dark-blue underline" href="https://osu.ppy.sh" target="_blank">${index["name"]}</a></u>\n` + format.osu(index["details"], index["state"]);
+        case "osu!": str += format.urlTemplate(index["name"], "https://osu.ppy.sh") + format.osu(index["details"], index["state"]);
         case "Spotify": break;
-        case "Visual Studio Code": str += format.vscode(index["details"], index["state"]);
+        case "Visual Studio Code": str += format.urlTemplate(index["name"], "https://code.visualstudio.com/") + format.vscode(index["details"], index["state"]);
         default: str += `${index["name"]}\n`;
       }
     }
