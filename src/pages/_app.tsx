@@ -2,7 +2,7 @@ import '../styles/global.css';
 import React from 'react';
 import Head from 'next/head';
 import { Analytics } from '@vercel/analytics/react';
-//import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 const App = ({ Component, pageProps }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const onClickAnywhere = () => {
@@ -28,6 +28,7 @@ const App = ({ Component, pageProps }) => {
         </main>
       </div>
       <Analytics />
+      <SpeedInsights />
     </>
   );
 };
