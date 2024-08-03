@@ -1,6 +1,5 @@
 import React from 'react';
 import * as bin from './bin';
-
 export const shell = async (
   command: string,
   setHistory: (value: string) => void,
@@ -9,7 +8,6 @@ export const shell = async (
 ) => {
   const args = command.split(' ');
   args[0] = args[0].toLowerCase();
-
   if (args[0] === 'clear') {
     clearHistory();
   } else if (command === '') {
@@ -22,6 +20,5 @@ export const shell = async (
     const output = await bin[args[0]](args.slice(1));
     setHistory(output);
   }
-
   setCommand('');
 };

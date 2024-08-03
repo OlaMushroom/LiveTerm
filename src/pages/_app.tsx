@@ -20,6 +20,7 @@ const App = ({ Component, pageProps }) => {
           key="viewport"
           maximum-scale="1"
         />
+        <meta name="description" content="Description." />
       </Head>
 
       <div

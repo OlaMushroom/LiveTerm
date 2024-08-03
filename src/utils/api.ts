@@ -1,50 +1,63 @@
 import axios from 'axios';
-
 const user_id = '608876620417335337';
-
 const format = {
-  urlTemplate: (name: string, url:string) => `<u><a class="text-light-blue dark:text-dark-blue underline" href="${url}" target="_blank">${name}</a></u>\n`,
-  osu: function(details?: string, state?: string) {
-    let str = "";
-    str += state !== (null || undefined) ? `\t${state}\n` : "";
-    str += state !== ("Idle" || "AFK") ? details !== (null || undefined) ? `\tBeatmap: ${details}\n` : "" : "";
+  urlTemplate: (name: string, url: string) =>
+    `<u><a class="text-light-blue dark:text-dark-blue underline" href="${url}" target="_blank">${name}</a></u>\n`,
+  osu: function (details?: string, state?: string) {
+    let str = '';
+    str += state !== (null || undefined) ? `\t${state}\n` : '';
+    str +=
+      state !== ('Idle' || 'AFK')
+        ? details !== (null || undefined)
+          ? `\tBeatmap: ${details}\n`
+          : ''
+        : '';
     return str;
   },
-  vscode: function(details?: string, state?: string) {
-    let str = "";
-    str += details !== (null || undefined) ? `\t${details}\n` : "";
-    str += state !== (null || undefined) ? `\t${state}\n` : "";
+  vscode: function (details?: string, state?: string) {
+    let str = '';
+    str += details !== (null || undefined) ? `\t${details}\n` : '';
+    str += state !== (null || undefined) ? `\t${state}\n` : '';
     return str;
-  }
-}
-
+  },
+};
 export const getActivities = async () => {
   try {
-    const { data } = await axios.get(`https://api.lanyard.rest/v1/users/${user_id}`);
+    const { data } = await axios.get(
+      `https://api.lanyard.rest/v1/users/${user_id}`,
+    );
     const activities = data['data']['activities'];
-    let str = "";
-    for (const index of activities) {
-      str += `#${activities.indexOf(index) + 1} - `;
-      switch (index["name"]) {
-        case "osu!":
-          str += format.urlTemplate(index["name"], "https://osu.ppy.sh") + format.osu(index["details"], index["state"]);
-          break;
-        case "Spotify":
-          break;
-        case "Visual Studio Code":
-          str += format.urlTemplate(index["name"], "https://code.visualstudio.com/") + format.vscode(index["details"], index["state"]);
-          break;
-        default:
-          str += `${index["name"]}\n`;
-          break;
+    if (activities.length > 0) {
+      let str = '';
+      for (const index of activities) {
+        str += `#${activities.indexOf(index) + 1} - `;
+        switch (index['name']) {
+          case 'osu!':
+            str +=
+              format.urlTemplate(index['name'], 'https://osu.ppy.sh') +
+              format.osu(index['details'], index['state']);
+            break;
+          case 'Spotify':
+            break;
+          case 'Visual Studio Code':
+            str +=
+              format.urlTemplate(
+                index['name'],
+                'https://code.visualstudio.com/',
+              ) + format.vscode(index['details'], index['state']);
+            break;
+          default:
+            str += `${index['name']}\n`;
+            break;
+        }
       }
+      return str;
     }
-    return str;
+    return 'No activity.';
   } catch (error) {
     return error;
   }
 };
-
 export const getWeather = async (city: string) => {
   try {
     const { data } = await axios.get(`https://wttr.in/${city}?ATm`);
@@ -53,7 +66,6 @@ export const getWeather = async (city: string) => {
     return error;
   }
 };
-
 /*
 const response = await (await fetch(`https://api.lanyard.rest/v1/users/${user_id}`)).json();
 const activities = response['data']['activities'];
