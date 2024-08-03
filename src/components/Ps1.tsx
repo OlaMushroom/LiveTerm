@@ -1,6 +1,5 @@
 import React from 'react';
 //import config from '../../config.json';
-
 export const Ps1 = () => {
   return (
     <div>
@@ -8,5 +7,4 @@ export const Ps1 = () => {
     </div>
   );
 };
-
 export default Ps1;

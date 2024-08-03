@@ -1,17 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @font-face {
   font-family: 'Monofur';
   src: url(/assets/fonts/MonofurNerdFontMono-Regular.ttf);
   display: swap;
 }
-
 * {
   font-family: 'Monofur', monospace;
 }
-
 html,
 body,
 body > div:first-child,
@@ -20,22 +17,18 @@ div#__next > div {
   height: 100%;
   overflow: auto;
 }
-
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: #1e252e;
   border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #ebdbb2;
   border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #ff8037;
 }
